@@ -19,7 +19,7 @@ node{
     stage('Run Docker image in deployment server'){
         def dockerrun = "docker run -d -p 8080:8080 --name java-web-app ravi365804/java-webapp-docker"
         sshagent(['docker_host']) {
-            sh 'ssh -o StrictHostKeyChecking=no ec2-user@172.31.2.2 docker stop java-webapp-docker || true'
+            sh 'ssh -o StrictHostKeyChecking=no ec2-user@172.31.2.2 docker stop java-web-app || true'
             sh 'ssh ec2-user@172.31.2.2 docker rm java-web-app || true'
             sh 'ssh ec2-user@172.31.2.2 docker rmi -f $(docker images -q) || true'
             sh "ssh ec2-user@172.31.2.2 ${dockerrun}"
